@@ -18,16 +18,11 @@ public class Book<T> {
 
     @Override
     public String toString() {
-        String authorListString = "";
-        for(T author: this.authorList){
-            authorListString += author;
-        }
-        return "Book{" +
-                "title='" + this.title + '\'' +
-                ", publishDate='" + this.getPublishDateString() + '\'' +
-                ", authorList=" + authorListString +
-                '}';
+
+        String retString = String.format("%-30s\t%-20s\t%-20s", this.title, this.getPublishDateString(), this.getAuthorListString());
+        return retString;
     }
+
 
     public String getTitle() {
         return title;
@@ -38,12 +33,24 @@ public class Book<T> {
         return publishDate;
     }
 
+    public String getPublishYear(){
+        return this.getPublishDateString().substring(0, 4);
+    }
+
     public String getPublishDateString(){
         return SDF.format(this.publishDate);
     }
 
     public List<T> getAuthorList() {
         return authorList;
+    }
+
+    public String getAuthorListString(){
+        String authorListString = "";
+        for(T author: this.authorList){
+            authorListString += (author + "\t");
+        }
+        return authorListString;
     }
 
     public void setTitle(String title) {

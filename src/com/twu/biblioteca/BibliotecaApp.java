@@ -14,7 +14,9 @@ public class BibliotecaApp {
         outputer.displayMessage(welcomeMessage);
 
         List<Book> bookList = getBookList();
-        outputer.displayLists(bookList);
+        outputer.displayBookListTitle(bookList);
+        System.out.println("-------------------------------------");
+        outputer.displayBookListDetail(bookList);
 
     }
 
@@ -23,17 +25,17 @@ public class BibliotecaApp {
         List<Book> bookList = new ArrayList<Book>();
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
-        Book book = new Book("Le Petit Prince", "1942-10-01", authers);
+        Book book = new Book("Le Petit Prince", "1942-10-01", (ArrayList<String>)authers.clone());
         bookList.add(book);
 
         authers.clear();
         authers.add("Khaled Hosseini");
-        book = new Book("The Kite Runner", "2003-01-01",  authers);
+        book = new Book("The Kite Runner", "2003-01-01",  (ArrayList<String>)authers.clone());
         bookList.add(book);
 
         authers.clear();
         authers.add("George Orwell");
-        book = new Book("Nineteen Eighty-Four", "1949-01-01",  authers);
+        book = new Book("Nineteen Eighty-Four", "1949-01-01",  (ArrayList<String>)authers.clone());
         bookList.add(book);
 
         return bookList;
