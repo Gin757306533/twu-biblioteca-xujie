@@ -43,6 +43,15 @@ public class ExampleTest {
         outputer.displayBookListDetail(bookList);
     }
 
+    @Test
+    public void testMenu(){
+        ArrayList<String> listOfOptions = new ArrayList<String>();
+        listOfOptions.add("List of Books");
+        Menu<String> menu = new Menu<String>(listOfOptions);
+        menu.displayMenu();
+
+    }
+
 
     public static List<Book> getBookList() throws ParseException {
         List<Book> bookList = new ArrayList<Book>();

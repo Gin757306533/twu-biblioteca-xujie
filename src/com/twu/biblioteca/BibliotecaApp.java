@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class BibliotecaApp {
     public static String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -13,10 +14,22 @@ public class BibliotecaApp {
         Outputer outputer = new Outputer();
         outputer.displayMessage(welcomeMessage);
 
-        List<Book> bookList = getBookList();
-        outputer.displayBookListTitle(bookList);
-        System.out.println("-------------------------------------");
-        outputer.displayBookListDetail(bookList);
+        ArrayList<String> listOfOptions = new ArrayList<String>();
+        listOfOptions.add("List of Books");
+        Menu<String> menu = new Menu<String>(listOfOptions);
+        menu.displayMenu();
+
+        Scanner sc = new Scanner(System.in);
+        int menu_i = sc.nextInt();
+        String option = menu.getIndexOption(menu_i);
+        if(option == "List of Books"){
+            List<Book> bookList = getBookList();
+            outputer.displayBookListTitle(bookList);
+        }
+
+
+//        System.out.println("-------------------------------------");
+//        outputer.displayBookListDetail(bookList);
 
     }
 
