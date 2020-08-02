@@ -12,6 +12,8 @@ public class BibliotecaApp{
     List<Book> bookList;
     public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static final String InvalidOptionMessage = "Please select a valid option";
+    public static final String CheckoutFailedMessage = "Sorry, that book is not available";
+    public static final String CheckoutSuccessfulMessage = "Thank you! Enjoy the book";
 
     public BibliotecaApp() throws ParseException {
         this.outputer = new Outputer();
@@ -33,6 +35,10 @@ public class BibliotecaApp{
             int ret = bibliotecaApp.interActWithCustomerOnMenu();
             if (ret == -1){
                 break;
+            }else{
+                boolean checkout = bibliotecaApp.checkoutBook();
+                bibliotecaApp.menu.displayMenu();
+
             }
         }
 
@@ -77,7 +83,43 @@ public class BibliotecaApp{
     }
 
 
-    
+    public int getCheckOutInput(){
+        int book_i;
+        while(true)
+        {
+            Scanner sc = new Scanner(System.in);
+            try{
+                book_i = sc.nextInt();
+                if (book_i > 0 && book_i <= this.bookList.size())break;
+                else if (book_i != -1){
+                    this.outputer.displayMessage(CheckoutFailedMessage);
+                    this.outputer.displayMessage("If you want to quit the checkout mode, enter -1");
+                    continue;
+                }else{
+                    return -1;
+                }
+
+            }catch (Exception e){
+                this.outputer.displayMessage(CheckoutFailedMessage);
+                this.outputer.displayMessage("If you want to quit the checkout mode, enter -1");
+                continue;
+
+            }
+        }
+        return book_i;
+    }
+
+    public boolean checkoutBook(){
+        int book_i = this.getCheckOutInput();
+        if(book_i != -1){
+            this.bookList.remove(book_i-1);
+            this.outputer.displayMessage(CheckoutSuccessfulMessage);
+            this.outputer.displayLists(this.bookList);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
     public List<Book> getBookList() throws ParseException {

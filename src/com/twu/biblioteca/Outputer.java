@@ -13,7 +13,7 @@ public class Outputer<T> {
     public void displayBookListTitle(List<Book> list){
         System.out.println("ID  " + "\t" + "Book Title");
         for(int i = 0; i < list.size(); i++){
-            System.out.printf("%-4d\t%-30s\n", i, list.get(i).getTitle());
+            System.out.printf("%-4d\t%-30s\n", i+1, list.get(i).getTitle());
         }
 
     }
@@ -33,7 +33,7 @@ public class Outputer<T> {
     public void displayBookListDetail(List<Book> list){
         System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\n", "ID", "Book Title", "Publication Year", "Author List");
         for(int i = 0; i < list.size(); i++){
-            System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\n", i, list.get(i).getTitle(),list.get(i).getPublishYear(), list.get(i).getAuthorListString());
+            System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\n", i+1, list.get(i).getTitle(),list.get(i).getPublishYear(), list.get(i).getAuthorListString());
         }
 
     }
@@ -41,7 +41,7 @@ public class Outputer<T> {
     public void displayLists(List<T> list){
         System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\n", "ID", "Book Title", "Publication Year", "Author List");
         list.stream().forEach(this.consumerWithIndex((item, index)->{
-            System.out.printf("%-4d\t%s\n", index, item);
+            System.out.printf("%-4d\t%s\n", index+1, item);
         }));
 
     }
