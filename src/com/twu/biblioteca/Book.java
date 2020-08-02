@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Book<T> {
-    String title;
-    Date publishDate;
-    List<T> authorList;
+    private String title;
+    private Date publishDate;
+    private List<T> authorList;
     static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     public Book(String title, String publishDate, List<T> authorList) throws ParseException {
