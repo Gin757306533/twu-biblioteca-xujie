@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp{
-    Menu<String> menu;
-    Outputer outputer;
-    List<Book> bookList;
-    List<Book> backupOfBookList;
-    List<Movie> movieList;
+    private Menu<String> menu;
+
+    private Outputer outputer;
+    private List<Book> bookList;
+    private List<Book> backupOfBookList;
+    private List<Movie> movieList;
+
     public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static final String InvalidOptionMessage = "Please select a valid option";
     public static final String CheckoutFailedMessage = "Sorry, that book is not available";
@@ -22,10 +24,10 @@ public class BibliotecaApp{
     public BibliotecaApp() throws ParseException {
         this.outputer = new Outputer();
         this.outputer.displayMessage(welcomeMessage);
-        this.bookList = this.getBookList();
+        this.bookList = this.getBookListBegain();
         this.backupOfBookList = new ArrayList<Book>();
         this.backupOfBookList.addAll(this.bookList);
-        this.movieList = this.getMovieList();
+        this.movieList = this.getMovieListBegain();
 
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
@@ -40,26 +42,23 @@ public class BibliotecaApp{
 
     public static void main(String[] args) throws ParseException {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        bibliotecaApp.menu.displayMenu();
+        bibliotecaApp.getMenu().displayMenu();
 
         while(true){
             int ret = bibliotecaApp.interActWithCustomerOnMenu();
             if (ret == -1){
                 break;
             }else if (ret == 1){
-//                bibliotecaApp.outputer.displayLists(bibliotecaApp.bookList);
-                bibliotecaApp.menu.displayMenu();
+                bibliotecaApp.getMenu().displayMenu();
 
             }else if (ret == 2){
-//                boolean checkout = bibliotecaApp.checkoutBook();
-                bibliotecaApp.menu.displayMenu();
+                bibliotecaApp.getMenu().displayMenu();
 
             }else if (ret == 3){
-//                boolean returnBook = bibliotecaApp.ReturnBook();
-                bibliotecaApp.menu.displayMenu();
+                bibliotecaApp.getMenu().displayMenu();
 
             }else if (ret == 4){
-                bibliotecaApp.menu.displayMenu();
+                bibliotecaApp.getMenu().displayMenu();
 
             }
         }
@@ -198,7 +197,7 @@ public class BibliotecaApp{
     }
 
 
-    public List<Book> getBookList() throws ParseException {
+    public List<Book> getBookListBegain() throws ParseException {
         List<Book> bookList = new ArrayList<Book>();
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
@@ -217,7 +216,7 @@ public class BibliotecaApp{
         return bookList;
     }
 
-    public List<Movie> getMovieList(){
+    public List<Movie> getMovieListBegain(){
         List<Movie> movieList = new ArrayList<Movie>();
         Movie movie = new Movie("he Shawshank Redemption", "1994", "Frank Darabont", 10);
         movieList.add(movie);
@@ -227,6 +226,39 @@ public class BibliotecaApp{
         movieList.add(movie);
         return movieList;
 
+    }
+
+
+    public Menu<String> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu<String> menu) {
+        this.menu = menu;
+    }
+
+    public Outputer getOutputer() {
+        return outputer;
+    }
+
+    public void setOutputer(Outputer outputer) {
+        this.outputer = outputer;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public List<Movie> getMovieList() {
+        return movieList;
     }
 
 

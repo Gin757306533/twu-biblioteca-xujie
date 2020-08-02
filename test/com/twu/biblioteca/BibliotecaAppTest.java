@@ -26,37 +26,37 @@ public class BibliotecaAppTest {
 
     @Test
     public void testMovieList(){
-        assertThat(bibliotecaApp.movieList.size(), CoreMatchers.is(3));
+        assertThat(bibliotecaApp.getMovieList().size(), CoreMatchers.is(3));
     }
 
     @Test
     public void testBookList() throws ParseException {
-        assertThat(this.bibliotecaApp.bookList.size(), CoreMatchers.is(3));
-        this.bibliotecaApp.outputer.displayBookListTitle(this.bibliotecaApp.bookList);
+        assertThat(this.bibliotecaApp.getBookList().size(), CoreMatchers.is(3));
+        this.bibliotecaApp.getOutputer().displayBookListTitle(this.bibliotecaApp.getBookList());
     }
 
     @Test
     public void testBookListDetail() throws ParseException {
-        assertThat(this.bibliotecaApp.bookList.size(), CoreMatchers.is(3));
-        this.bibliotecaApp.outputer.displayBookListDetail(this.bibliotecaApp.bookList);
+        assertThat(this.bibliotecaApp.getBookList().size(), CoreMatchers.is(3));
+        this.bibliotecaApp.getOutputer().displayBookListDetail(this.bibliotecaApp.getBookList());
     }
 
     @Test
     public void testCheckout() throws ParseException {
-        int beforeCount = bibliotecaApp.bookList.size();
+        int beforeCount = bibliotecaApp.getBookList().size();
         bibliotecaApp.checkoutBook(1);
-        assertThat(beforeCount, CoreMatchers.is(bibliotecaApp.bookList.size()+1));
+        assertThat(beforeCount, CoreMatchers.is(bibliotecaApp.getBookList().size()+1));
     }
 
     @Test
     public void testReturn() throws ParseException {
         bibliotecaApp.checkoutBook(1);
-        int beforeCount = bibliotecaApp.bookList.size();
+        int beforeCount = bibliotecaApp.getBookList().size();
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
         Book book = new Book("Le Petit Prince", "1942-10-01", (ArrayList<String>)authers.clone());
 
         bibliotecaApp.ReturnBook(book);
-        assertThat(beforeCount, CoreMatchers.is(bibliotecaApp.bookList.size()-1));
+        assertThat(beforeCount, CoreMatchers.is(bibliotecaApp.getBookList().size()-1));
     }
 }
