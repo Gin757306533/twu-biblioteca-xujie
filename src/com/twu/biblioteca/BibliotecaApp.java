@@ -14,16 +14,9 @@ public class BibliotecaApp{
     private List<Book> backupOfBookList;
     private List<Movie> movieList;
 
-    public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    public static final String InvalidOptionMessage = "Please select a valid option";
-    public static final String CheckoutFailedMessage = "Sorry, that book is not available";
-    public static final String CheckoutSuccessfulMessage = "Thank you! Enjoy the book";
-    public static final String ReturnBookSuccessfulMessage = "Thank you for returning the book";
-    public static final String ReturnBookFailedMessage = "That is not a valid book to return.";
-
     public BibliotecaApp() throws ParseException {
         this.outputer = new Outputer();
-        this.outputer.displayMessage(welcomeMessage);
+        this.outputer.displayMessage(Message.getWelcomeMessage());
         this.bookList = this.getBookListBegain();
         this.backupOfBookList = new ArrayList<Book>();
         this.backupOfBookList.addAll(this.bookList);
@@ -75,12 +68,12 @@ public class BibliotecaApp{
                 menu_i = sc.nextInt();
                 if (menu_i > 0 && menu_i <= this.menu.getlistOfOptions().size())break;
                 else{
-                    this.outputer.displayMessage(InvalidOptionMessage);
+                    this.outputer.displayMessage(Message.getInvalidOptionMessage());
                     continue;
                 }
 
             }catch (Exception e){
-                this.outputer.displayMessage(InvalidOptionMessage);
+                this.outputer.displayMessage(Message.getInvalidOptionMessage());
 
             }
         }
@@ -145,15 +138,15 @@ public class BibliotecaApp{
 
 
         if(this.backupOfBookList.contains(book) && !this.bookList.contains(book)){
-            this.outputer.displayMessage(ReturnBookSuccessfulMessage);
+            this.outputer.displayMessage(Message.getReturnBookSuccessfulMessage());
             this.bookList.add(book);
             this.outputer.displayLists(this.bookList);
             return true;
         }else if(!this.backupOfBookList.contains(book)){
-            this.outputer.displayMessage(ReturnBookFailedMessage);
+            this.outputer.displayMessage(Message.getReturnBookFailedMessage());
             return false;
         }else{
-            this.outputer.displayMessage(ReturnBookFailedMessage);
+            this.outputer.displayMessage(Message.getReturnBookFailedMessage());
             return false;
         }
     }
@@ -168,7 +161,7 @@ public class BibliotecaApp{
                 book_i = sc.nextInt();
                 if (book_i > 0 && book_i <= this.bookList.size())break;
                 else if (book_i != -1){
-                    this.outputer.displayMessage(CheckoutFailedMessage);
+                    this.outputer.displayMessage(Message.getCheckoutFailedMessage());
                     this.outputer.displayMessage("If you want to quit the checkout mode, enter -1");
                     continue;
                 }else{
@@ -176,7 +169,7 @@ public class BibliotecaApp{
                 }
 
             }catch (Exception e){
-                this.outputer.displayMessage(CheckoutFailedMessage);
+                this.outputer.displayMessage(Message.getCheckoutFailedMessage());
                 this.outputer.displayMessage("If you want to quit the checkout mode, enter -1");
                 continue;
 
@@ -188,7 +181,7 @@ public class BibliotecaApp{
     public boolean checkoutBook(int book_i){
         if(book_i != -1){
             this.bookList.remove(book_i-1);
-            this.outputer.displayMessage(CheckoutSuccessfulMessage);
+            this.outputer.displayMessage(Message.getCheckoutSuccessfulMessage());
             this.outputer.displayLists(this.bookList);
             return true;
         }else{
