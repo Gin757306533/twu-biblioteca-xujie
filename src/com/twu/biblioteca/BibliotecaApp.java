@@ -10,19 +10,26 @@ public class BibliotecaApp{
     Menu<String> menu;
     Outputer outputer;
     List<Book> bookList;
+    List<Book> backupOfBookList;
     public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static final String InvalidOptionMessage = "Please select a valid option";
     public static final String CheckoutFailedMessage = "Sorry, that book is not available";
     public static final String CheckoutSuccessfulMessage = "Thank you! Enjoy the book";
+    public static final String ReturnBookSuccessfulMessage = "Thank you for returning the book";
+    public static final String ReturnBookFailedMessage = "That is not a valid book to return.";
 
     public BibliotecaApp() throws ParseException {
         this.outputer = new Outputer();
         this.outputer.displayMessage(welcomeMessage);
         this.bookList = this.getBookList();
+        this.backupOfBookList = new ArrayList<Book>();
+        this.backupOfBookList.addAll(this.bookList);
 
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
         listOfOptions.add("List of Books");
+        listOfOptions.add("Checkout a book");
+        listOfOptions.add("Return a book");
         listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
         this.menu.displayMenu();
@@ -35,8 +42,16 @@ public class BibliotecaApp{
             int ret = bibliotecaApp.interActWithCustomerOnMenu();
             if (ret == -1){
                 break;
-            }else{
-                boolean checkout = bibliotecaApp.checkoutBook();
+            }else if (ret == 1){
+//                bibliotecaApp.outputer.displayLists(bibliotecaApp.bookList);
+                bibliotecaApp.menu.displayMenu();
+
+            }else if (ret == 2){
+//                boolean checkout = bibliotecaApp.checkoutBook();
+                bibliotecaApp.menu.displayMenu();
+
+            }else if (ret == 3){
+//                boolean returnBook = bibliotecaApp.ReturnBook();
                 bibliotecaApp.menu.displayMenu();
 
             }
@@ -70,16 +85,72 @@ public class BibliotecaApp{
         return menu_i;
     }
 
-    public int interActWithCustomerOnMenu(){
+    public int interActWithCustomerOnMenu() throws ParseException {
         int menu_i = this.getMenuInput();
         String option = this.menu.getIndexOption(menu_i);
         if(option == "List of Books"){
-            this.outputer.displayBookListTitle(this.bookList);
+            this.outputer.displayBookListDetail(this.bookList);
             return 1;
+        }else if (option == "Checkout a book"){
+            int book_i = this.getCheckOutInput();
+            this.checkoutBook(book_i);
+            return 2;
+        }else if (option == "Return a book"){
+            Book book = this.getBookInfo();
+            this.ReturnBook(book);
+            return 3;
         }else if (option == "Quit"){
             return -1;
         }
         return 1;
+    }
+
+    public Book getBookInfo() throws ParseException {
+        Book book;
+        while(true)
+        {
+            Scanner sc = new Scanner(System.in);
+            try{
+                this.outputer.displayMessage("Please input the title of the book:");
+                String bookTitle = sc.nextLine().trim();
+                this.outputer.displayMessage("Please input the publish date of the book:");
+                String bookPublishDate = sc.nextLine().trim();
+                int author_i = 0;
+                ArrayList<String> authers = new ArrayList<String>();
+                String author = "";
+                do{
+                    author_i += 1;
+                    this.outputer.displayMessage("Please input the " + author_i + " author of the book:");
+                    authers.add(sc.nextLine().trim());
+                }while(author != "");
+                book = new Book(bookTitle, bookPublishDate, authers);
+                return book;
+
+
+            }catch (Exception e){
+                this.outputer.displayMessage("Something goes wrong when return a book!");
+                continue;
+
+            }
+        }
+    }
+
+
+    public boolean ReturnBook(Book book) throws ParseException {
+
+
+        if(this.backupOfBookList.contains(book) && !this.bookList.contains(book)){
+            this.outputer.displayMessage(ReturnBookSuccessfulMessage);
+            this.bookList.add(book);
+            this.outputer.displayLists(this.bookList);
+            return true;
+        }else if(!this.backupOfBookList.contains(book)){
+            this.outputer.displayMessage(ReturnBookFailedMessage);
+            return false;
+        }else{
+            this.outputer.displayMessage(ReturnBookFailedMessage);
+            return false;
+        }
     }
 
 
@@ -109,8 +180,7 @@ public class BibliotecaApp{
         return book_i;
     }
 
-    public boolean checkoutBook(){
-        int book_i = this.getCheckOutInput();
+    public boolean checkoutBook(int book_i){
         if(book_i != -1){
             this.bookList.remove(book_i-1);
             this.outputer.displayMessage(CheckoutSuccessfulMessage);
@@ -138,7 +208,6 @@ public class BibliotecaApp{
         authers.add("George Orwell");
         book = new Book("Nineteen Eighty-Four", "1949-01-01",  (ArrayList<String>)authers.clone());
         bookList.add(book);
-
         return bookList;
     }
 

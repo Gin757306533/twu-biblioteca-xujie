@@ -17,6 +17,25 @@ public class Book<T> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (getClass() != obj.getClass()){
+            return false;
+        }
+        Book book = (Book) obj;
+        boolean titleFlag = this.title.equals(book.title);
+        boolean dateFlag = this.publishDate.equals(book.publishDate);
+        boolean authorFlag = this.authorList.equals( book.authorList);
+
+        return titleFlag && dateFlag && authorFlag;
+    }
+
+    @Override
     public String toString() {
 
         String retString = String.format("%-30s\t%-20s\t%-20s", this.title, this.getPublishDateString(), this.getAuthorListString());
