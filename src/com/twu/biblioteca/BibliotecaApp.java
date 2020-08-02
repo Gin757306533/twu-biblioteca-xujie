@@ -11,6 +11,7 @@ public class BibliotecaApp{
     Outputer outputer;
     List<Book> bookList;
     List<Book> backupOfBookList;
+    List<Movie> movieList;
     public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     public static final String InvalidOptionMessage = "Please select a valid option";
     public static final String CheckoutFailedMessage = "Sorry, that book is not available";
@@ -24,19 +25,22 @@ public class BibliotecaApp{
         this.bookList = this.getBookList();
         this.backupOfBookList = new ArrayList<Book>();
         this.backupOfBookList.addAll(this.bookList);
+        this.movieList = this.getMovieList();
 
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
         listOfOptions.add("List of Books");
         listOfOptions.add("Checkout a book");
         listOfOptions.add("Return a book");
+        listOfOptions.add("View a list of available movies");
         listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
-        this.menu.displayMenu();
+
     }
 
     public static void main(String[] args) throws ParseException {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        bibliotecaApp.menu.displayMenu();
 
         while(true){
             int ret = bibliotecaApp.interActWithCustomerOnMenu();
@@ -54,13 +58,12 @@ public class BibliotecaApp{
 //                boolean returnBook = bibliotecaApp.ReturnBook();
                 bibliotecaApp.menu.displayMenu();
 
+            }else if (ret == 4){
+                bibliotecaApp.menu.displayMenu();
+
             }
         }
 
-
-
-//        System.out.println("-------------------------------------");
-//        outputer.displayBookListDetail(bookList);
 
     }
 
@@ -99,6 +102,9 @@ public class BibliotecaApp{
             Book book = this.getBookInfo();
             this.ReturnBook(book);
             return 3;
+        }else if (option == "View a list of available movies"){
+            this.outputer.displayMovieListDetail(this.movieList);
+            return 4;
         }else if (option == "Quit"){
             return -1;
         }
@@ -209,6 +215,18 @@ public class BibliotecaApp{
         book = new Book("Nineteen Eighty-Four", "1949-01-01",  (ArrayList<String>)authers.clone());
         bookList.add(book);
         return bookList;
+    }
+
+    public List<Movie> getMovieList(){
+        List<Movie> movieList = new ArrayList<Movie>();
+        Movie book = new Movie("he Shawshank Redemption", "1994", "Frank Darabont", 10);
+        movieList.add(book);
+        book = new Movie("Léon", "1994", "Luc Besson", 9);
+        movieList.add(book);
+        book = new Movie(" Green Book", "2018", "Peter Farrelly", 8);
+        movieList.add(book);
+        return movieList;
+
     }
 
 

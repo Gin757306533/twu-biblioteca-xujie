@@ -31,6 +31,11 @@ public class ExampleTest {
     }
 
     @Test
+    public void testMovieList(){
+        assertThat(bibliotecaApp.movieList.size(), CoreMatchers.is(3));
+    }
+
+    @Test
     public void testBook() throws ParseException {
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
@@ -39,6 +44,7 @@ public class ExampleTest {
         assertThat(book.getPublishDateString(), CoreMatchers.is("1942-10-01"));
         assertThat(book.getAuthorList(), CoreMatchers.is(new ArrayList(authers)));
     }
+
 
     @Test
     public void testBookList() throws ParseException {
