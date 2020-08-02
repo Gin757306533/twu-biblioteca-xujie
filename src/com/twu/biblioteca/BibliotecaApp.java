@@ -21,13 +21,21 @@ public class BibliotecaApp{
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
         listOfOptions.add("List of Books");
+        listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
         this.menu.displayMenu();
     }
 
     public static void main(String[] args) throws ParseException {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        bibliotecaApp.interActWithCustomerOnMenu();
+
+        while(true){
+            int ret = bibliotecaApp.interActWithCustomerOnMenu();
+            if (ret == -1){
+                break;
+            }
+        }
+
 
 
 //        System.out.println("-------------------------------------");
@@ -56,15 +64,20 @@ public class BibliotecaApp{
         return menu_i;
     }
 
-    public void interActWithCustomerOnMenu(){
+    public int interActWithCustomerOnMenu(){
         int menu_i = this.getMenuInput();
         String option = this.menu.getIndexOption(menu_i);
         if(option == "List of Books"){
             this.outputer.displayBookListTitle(this.bookList);
+            return 1;
+        }else if (option == "Quit"){
+            return -1;
         }
+        return 1;
     }
 
 
+    
 
 
     public List<Book> getBookList() throws ParseException {
