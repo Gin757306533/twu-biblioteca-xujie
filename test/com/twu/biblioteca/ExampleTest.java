@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 
 import org.hamcrest.CoreMatchers;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -10,8 +11,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-
+import org.junit.contrib.java.lang.system.SystemOutRule;
 public class ExampleTest {
+//    private SomeCode somecode;
+
+    @Rule
+    public final SystemOutRule log = new SystemOutRule().enableLog();
+
     @Test
     public void test() {
         assertEquals(1, 1);
@@ -43,13 +49,15 @@ public class ExampleTest {
         outputer.displayBookListDetail(bookList);
     }
 
+
     @Test
     public void testMenu(){
+        log.clearLog();
         ArrayList<String> listOfOptions = new ArrayList<String>();
         listOfOptions.add("List of Books");
         Menu<String> menu = new Menu<String>(listOfOptions);
         menu.displayMenu();
-
+        assertThat(log.getLog(), CoreMatchers.containsString("Hello, Welcome to Biblioteca Menu"));
     }
 
 

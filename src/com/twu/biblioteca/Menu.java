@@ -53,6 +53,7 @@ public class Menu<T> {
     }
 
     public T getIndexOption(Integer index){
+
         return this.listOfOptions.get(index-1);
     }
 }

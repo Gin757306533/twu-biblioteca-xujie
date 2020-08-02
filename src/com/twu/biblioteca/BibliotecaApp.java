@@ -6,26 +6,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class BibliotecaApp {
-    public static String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+public class BibliotecaApp{
+    Menu<String> menu;
+    Outputer outputer;
+    List<Book> bookList;
+    public static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+    public static final String InvalidOptionMessage = "Please select a valid option";
 
+    public BibliotecaApp() throws ParseException {
+        this.outputer = new Outputer();
+        this.outputer.displayMessage(welcomeMessage);
+        this.bookList = this.getBookList();
 
-    public static void main(String[] args) throws ParseException {
-        Outputer outputer = new Outputer();
-        outputer.displayMessage(welcomeMessage);
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
         listOfOptions.add("List of Books");
-        Menu<String> menu = new Menu<String>(listOfOptions);
-        menu.displayMenu();
+        this.menu = new Menu<String>(listOfOptions);
+        this.menu.displayMenu();
+    }
 
-        Scanner sc = new Scanner(System.in);
-        int menu_i = sc.nextInt();
-        String option = menu.getIndexOption(menu_i);
-        if(option == "List of Books"){
-            List<Book> bookList = getBookList();
-            outputer.displayBookListTitle(bookList);
-        }
+    public static void main(String[] args) throws ParseException {
+        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        bibliotecaApp.interActWithCustomerOnMenu();
 
 
 //        System.out.println("-------------------------------------");
@@ -33,8 +35,39 @@ public class BibliotecaApp {
 
     }
 
+    public int getMenuInput(){
+        int menu_i;
+        while(true)
+        {
+            Scanner sc = new Scanner(System.in);
+            try{
+                menu_i = sc.nextInt();
+                if (menu_i > 0 && menu_i <= this.menu.getlistOfOptions().size())break;
+                else{
+                    this.outputer.displayMessage(InvalidOptionMessage);
+                    continue;
+                }
 
-    public static List<Book> getBookList() throws ParseException {
+            }catch (Exception e){
+                this.outputer.displayMessage(InvalidOptionMessage);
+
+            }
+        }
+        return menu_i;
+    }
+
+    public void interActWithCustomerOnMenu(){
+        int menu_i = this.getMenuInput();
+        String option = this.menu.getIndexOption(menu_i);
+        if(option == "List of Books"){
+            this.outputer.displayBookListTitle(this.bookList);
+        }
+    }
+
+
+
+
+    public List<Book> getBookList() throws ParseException {
         List<Book> bookList = new ArrayList<Book>();
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
