@@ -219,12 +219,12 @@ public class BibliotecaApp{
 
     public List<Movie> getMovieList(){
         List<Movie> movieList = new ArrayList<Movie>();
-        Movie book = new Movie("he Shawshank Redemption", "1994", "Frank Darabont", 10);
-        movieList.add(book);
-        book = new Movie("Léon", "1994", "Luc Besson", 9);
-        movieList.add(book);
-        book = new Movie(" Green Book", "2018", "Peter Farrelly", 8);
-        movieList.add(book);
+        Movie movie = new Movie("he Shawshank Redemption", "1994", "Frank Darabont", 10);
+        movieList.add(movie);
+        movie = new Movie("Léon", "1994", "Luc Besson", 9);
+        movieList.add(movie);
+        movie = new Movie(" Green Book", "2018", "Peter Farrelly", 8);
+        movieList.add(movie);
         return movieList;
 
     }
