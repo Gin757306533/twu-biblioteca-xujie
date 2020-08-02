@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 import java.util.List;
 
 public class Menu<T> {
-    List<T> listOfOptions;
+    private List<T> listOfOptions;
 
     public Menu(List<T> listOfOptions) {
         this.listOfOptions = listOfOptions;
