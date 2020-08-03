@@ -4,14 +4,13 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Book<T> {
-    private String title;
+public class Book<T> extends Item{
     private Date publishDate;
     private List<T> authorList;
     static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     public Book(String title, String publishDate, List<T> authorList) throws ParseException {
-        this.title = title;
+        super(title);
         this.setPublishDate(publishDate);
         this.authorList = authorList;
     }
@@ -28,7 +27,7 @@ public class Book<T> {
             return false;
         }
         Book book = (Book) obj;
-        boolean titleFlag = this.title.equals(book.title);
+        boolean titleFlag = this.getTitle().equals(book.getTitle());
         boolean dateFlag = this.publishDate.equals(book.publishDate);
         boolean authorFlag = this.authorList.equals( book.authorList);
 
@@ -38,14 +37,10 @@ public class Book<T> {
     @Override
     public String toString() {
 
-        String retString = String.format("%-30s\t%-20s\t%-20s", this.title, this.getPublishDateString(), this.getAuthorListString());
+        String retString = String.format("%-30s\t%-20s\t%-20s", this.getTitle(), this.getPublishDateString(), this.getAuthorListString());
         return retString;
     }
 
-
-    public String getTitle() {
-        return title;
-    }
 
 
     public Date getPublishDate() {
@@ -72,9 +67,6 @@ public class Book<T> {
         return authorListString;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
 
     public void setPublishDate(String publishDate) throws ParseException {
