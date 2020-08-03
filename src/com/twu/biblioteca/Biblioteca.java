@@ -11,14 +11,16 @@ public class Biblioteca {
     private List<Book> bookList;
     private List<Book> backupOfBookList;
     private List<Movie> movieList;
+    private DatabaseOfLibrary databaseOfLibrary;
 
     public Biblioteca() throws ParseException {
+        this.databaseOfLibrary = new DatabaseOfLibrary();
         this.outputer = new Outputer();
         this.outputer.displayMessage(Message.getWelcomeMessage());
-        this.bookList = this.getBookListBegain();
+        this.bookList = databaseOfLibrary.getBookList();
         this.backupOfBookList = new ArrayList<Book>();
         this.backupOfBookList.addAll(this.bookList);
-        this.movieList = this.getMovieListBegain();
+        this.movieList = databaseOfLibrary.getMovieList();
 
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
@@ -185,37 +187,6 @@ public class Biblioteca {
 
 
 
-
-    public List<Book> getBookListBegain() throws ParseException {
-        List<Book> bookList = new ArrayList<Book>();
-        ArrayList<String> authers = new ArrayList<String>();
-        authers.add("Antoine de Saint-Exupéry");
-        Book book = new Book("Le Petit Prince", "1942-10-01", (ArrayList<String>)authers.clone());
-        bookList.add(book);
-
-        authers.clear();
-        authers.add("Khaled Hosseini");
-        book = new Book("The Kite Runner", "2003-01-01",  (ArrayList<String>)authers.clone());
-        bookList.add(book);
-
-        authers.clear();
-        authers.add("George Orwell");
-        book = new Book("Nineteen Eighty-Four", "1949-01-01",  (ArrayList<String>)authers.clone());
-        bookList.add(book);
-        return bookList;
-    }
-
-    public List<Movie> getMovieListBegain(){
-        List<Movie> movieList = new ArrayList<Movie>();
-        Movie movie = new Movie("he Shawshank Redemption", "1994", "Frank Darabont", 10);
-        movieList.add(movie);
-        movie = new Movie("Léon", "1994", "Luc Besson", 9);
-        movieList.add(movie);
-        movie = new Movie(" Green Book", "2018", "Peter Farrelly", 8);
-        movieList.add(movie);
-        return movieList;
-
-    }
 
 
     public Menu<String> getMenu() {
