@@ -31,4 +31,8 @@ public class Message {
     public static String getReturnBookFailedMessage() {
         return ReturnBookFailedMessage;
     }
+
+    public static String ReturnBookSuccessfulMessage() {
+        return ReturnBookSuccessfulMessage;
+    }
 }
