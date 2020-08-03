@@ -2,17 +2,54 @@ package com.twu.biblioteca;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseOfLibrary {
     private List<Customer> customerList;
     private List<Movie> movieList;
     private List<Book> bookList;
+    private Map<Customer, List<Book>> bookCheckoutMapper;
 
     public DatabaseOfLibrary() throws ParseException {
         this.customerList = this.createUserInfo();
         this.movieList = this.getMovieListBegain();
         this.bookList = this.getBookListBegain();
+        this.bookCheckoutMapper = new HashMap<>();
+    }
+
+    public void checkoutBook(Customer customer, Book book){
+        ArrayList<Book> customerCheckoutedBookBefore;
+        if (bookCheckoutMapper.containsKey(customer)) {
+            customerCheckoutedBookBefore = (ArrayList<Book>)bookCheckoutMapper.get(customer);
+
+        }else{
+             customerCheckoutedBookBefore = new ArrayList<>();
+
+        }
+
+        customerCheckoutedBookBefore.add(book);
+        bookCheckoutMapper.put(customer, customerCheckoutedBookBefore);
+    }
+
+    public void returnBook(Customer customer, Book book){
+
+        if (bookCheckoutMapper.containsKey(customer)){
+            ArrayList<Book> customerCheckoutedBookBefore = (ArrayList<Book>)bookCheckoutMapper.get(customer);
+            customerCheckoutedBookBefore.remove(book);
+            if(customerCheckoutedBookBefore.size() == 0){
+                bookCheckoutMapper.remove(customer);
+            }else{
+                bookCheckoutMapper.put(customer, customerCheckoutedBookBefore);
+            }
+
+
+        }
+    }
+
+    public Map<Customer, List<Book>> getBookCheckoutMapper() {
+        return bookCheckoutMapper;
     }
 
     public List<Customer> createUserInfo(){
