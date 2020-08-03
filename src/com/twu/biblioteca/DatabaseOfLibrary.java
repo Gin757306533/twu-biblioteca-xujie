@@ -54,10 +54,10 @@ public class DatabaseOfLibrary {
 
     public List<Customer> createUserInfo(){
         ArrayList<Customer> userList = new ArrayList<>();
-        Customer customer = new Customer("xujie", "757306533@qq.com","17674013080");
+        Customer customer = new Customer("xujie", "757306533@qq.com","333-4444", "123");
         userList.add(customer);
 
-        customer = new Customer("chenhuan", "18624034615@163.com","18624034615");
+        customer = new Customer("chenhuan", "18624034615@163.com","222-3333", "123");
         userList.add(customer);
         return userList;
 
@@ -105,4 +105,5 @@ public class DatabaseOfLibrary {
     public List<Book> getBookList() {
         return bookList;
     }
+
 }
