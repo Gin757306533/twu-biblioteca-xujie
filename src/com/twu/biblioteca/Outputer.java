@@ -19,21 +19,10 @@ public class Outputer<T> {
     }
 
 
-//    public void displayListsTitle(List<? super Book> list){
-//        System.out.println("index\t" + "title");
-//        for(int i = 0; i < list.size(); i++){
-//            System.out.println(i + "\t" + list.get(i).getTitle());
-//        }
-////        list.stream().forEach(this.consumerWithIndex((item, index)->{
-////            System.out.println(index + "\t" + item.getTitle()); // 用泛型的时候这里报错，回头再来看看
-////        }));
-//
-//    }
-
     public void displayMovieListDetail(List<Movie> list){
         System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\t%-15s\n", "ID", "Movie Name", "Year", "Director", "Movie rating");
         for(int i = 0; i < list.size(); i++){
-            System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\t%-15d\n", i+1, list.get(i).getName(),list.get(i).getYear(), list.get(i).getDirector(), list.get(i).getMovieRating());
+            System.out.printf("%-4s\t%-30s\t%-20s\t%-20s\t%-15d\n", i+1, list.get(i).getTitle(),list.get(i).getYear(), list.get(i).getDirector(), list.get(i).getMovieRating());
         }
 
     }

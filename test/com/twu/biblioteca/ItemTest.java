@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 public class ItemTest {
     @Test
     public void testItem(){
+
         //given
         Item item = new Item("test");
 

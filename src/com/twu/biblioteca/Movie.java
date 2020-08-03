@@ -1,24 +1,15 @@
 package com.twu.biblioteca;
 
-public class Movie {
-    private String name;
+public class Movie extends Item{
     private String year;
     private String director;
     private int movieRating;
 
-    public Movie(String name, String year, String director, int movieRating) {
-        this.name = name;
+    public Movie(String title, String year, String director, int movieRating) {
+        super(title);
         this.year = year;
         this.director = director;
         this.movieRating = movieRating;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getYear() {
