@@ -4,8 +4,6 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertThat;
 
 public class MovieTest {
