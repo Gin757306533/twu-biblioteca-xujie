@@ -55,7 +55,7 @@ public class BibliotecaTest {
 
         //when
         int beforeCount = biblioteca.getBookList().size();
-        biblioteca.checkoutBook(1);
+        biblioteca.checkoutItem(1, biblioteca.getBookList());
 
         //then
         assertThat(beforeCount, CoreMatchers.is(biblioteca.getBookList().size()+1));
@@ -70,7 +70,7 @@ public class BibliotecaTest {
 
 
         //given
-        biblioteca.checkoutBook(1);
+        biblioteca.checkoutItem(1, biblioteca.getBookList());
         int beforeCount = biblioteca.getBookList().size();
         biblioteca.ReturnBook(book);
 

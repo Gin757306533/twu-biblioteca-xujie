@@ -8,6 +8,17 @@ public class Message {
     public static final String ReturnBookSuccessfulMessage = "Thank you for returning the book";
     public static final String ReturnBookFailedMessage = "That is not a valid book to return.";
 
+    public static final String CheckoutMovieFailedMessage = "Sorry, that movie is not available";
+    public static final String CheckoutMovieSuccessfulMessage = "Thank you! Enjoy the movie";
+
+    public static String getCheckoutMovieFailedMessage() {
+        return CheckoutMovieFailedMessage;
+    }
+
+    public static String getCheckoutMovieSuccessfulMessage() {
+        return CheckoutMovieSuccessfulMessage;
+    }
+
     public static String getWelcomeMessage() {
         return welcomeMessage;
     }

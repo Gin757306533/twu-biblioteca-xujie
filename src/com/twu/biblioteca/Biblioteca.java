@@ -37,7 +37,7 @@ public class Biblioteca {
             Scanner sc = new Scanner(System.in);
             try{
                 menu_i = sc.nextInt();
-                if (menu_i > 0 && menu_i <= this.menu.getlistOfOptions().size())break;
+                if (isIndexInList(menu_i, this.menu.getlistOfOptions().size()))break;
                 else{
                     this.outputer.displayMessage(Message.getInvalidOptionMessage());
                     continue;
@@ -58,8 +58,8 @@ public class Biblioteca {
             this.outputer.displayBookListDetail(this.bookList);
             return 1;
         }else if (option == "Checkout a book"){
-            int book_i = this.getCheckOutInput();
-            this.checkoutBook(book_i);
+            int book_i = this.getCheckOutInput(this.bookList);
+            this.checkoutItem(book_i, this.getBookList());
             return 2;
         }else if (option == "Return a book"){
             Book book = this.getBookInfo();
@@ -123,16 +123,24 @@ public class Biblioteca {
     }
 
 
-    public int getCheckOutInput(){
-        int book_i;
+
+
+    public int getCheckOutInput(List<? extends Item> list){
+        int item_i;
         while(true)
         {
             Scanner sc = new Scanner(System.in);
             try{
-                book_i = sc.nextInt();
-                if (book_i > 0 && book_i <= this.bookList.size())break;
-                else if (book_i != -1){
-                    this.outputer.displayMessage(Message.getCheckoutFailedMessage());
+                item_i = sc.nextInt();
+                if (isIndexInList(item_i, list.size()))break;
+                else if (item_i != -1){
+                    Item item = list.get(0);
+                    if (item instanceof Book){
+                        this.outputer.displayMessage(Message.getCheckoutFailedMessage());
+                    }else if(item instanceof Movie){
+                        this.outputer.displayMessage(Message.getCheckoutMovieFailedMessage());
+                    }
+
                     this.outputer.displayMessage("If you want to quit the checkout mode, enter -1");
                     continue;
                 }else{
@@ -146,19 +154,31 @@ public class Biblioteca {
 
             }
         }
-        return book_i;
+        return item_i;
     }
 
-    public boolean checkoutBook(int book_i){
-        if(book_i != -1){
-            this.bookList.remove(book_i-1);
-            this.outputer.displayMessage(Message.getCheckoutSuccessfulMessage());
-            this.outputer.displayLists(this.bookList);
+    private boolean isIndexInList(int item_i, int size) {
+        return item_i > 0 && item_i <= size;
+    }
+
+
+    public boolean checkoutItem(int item_i, List<? extends Item> list){
+        if(item_i != -1){
+            Item item = list.remove(item_i-1);
+            if (item instanceof Book){
+                this.outputer.displayMessage(Message.getCheckoutSuccessfulMessage());
+            }else if(item instanceof Movie){
+                this.outputer.displayMessage(Message.getCheckoutMovieFailedMessage());
+            }
+
+            this.outputer.displayLists(list);
             return true;
         }else{
             return false;
         }
     }
+
+
 
 
     public List<Book> getBookListBegain() throws ParseException {
