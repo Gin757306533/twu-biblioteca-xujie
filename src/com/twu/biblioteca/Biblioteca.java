@@ -26,6 +26,7 @@ public class Biblioteca {
         listOfOptions.add("Checkout a book");
         listOfOptions.add("Return a book");
         listOfOptions.add("View a list of available movies");
+        listOfOptions.add("Checkout a movie");
         listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
     }
@@ -68,6 +69,10 @@ public class Biblioteca {
         }else if (option == "View a list of available movies"){
             this.outputer.displayMovieListDetail(this.movieList);
             return 4;
+        }else if (option == "Checkout a movie"){
+            int book_i = this.getCheckOutInput(this.movieList);
+            this.checkoutItem(book_i, this.getMovieList());
+            return 2;
         }else if (option == "Quit"){
             return -1;
         }

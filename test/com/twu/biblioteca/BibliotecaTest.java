@@ -50,7 +50,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void testCheckout() throws ParseException {
+    public void testCheckoutBook() throws ParseException {
         //given
 
         //when
@@ -59,6 +59,18 @@ public class BibliotecaTest {
 
         //then
         assertThat(beforeCount, CoreMatchers.is(biblioteca.getBookList().size()+1));
+    }
+
+    @Test
+    public void testCheckoutMovie() throws ParseException {
+        //given
+
+        //when
+        int beforeCount = biblioteca.getMovieList().size();
+        biblioteca.checkoutItem(1, biblioteca.getMovieList());
+
+        //then
+        assertThat(beforeCount, CoreMatchers.is(biblioteca.getMovieList().size()+1));
     }
 
     @Test
