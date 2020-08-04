@@ -12,6 +12,11 @@ public class Customer extends Person {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return this.getName() + "\t" + this.email + "\t" + this.phone;
+    }
+
     public String getPassword() {
         return password;
     }

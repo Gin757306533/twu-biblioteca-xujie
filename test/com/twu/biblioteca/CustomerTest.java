@@ -20,6 +20,7 @@ public class CustomerTest {
         assertThat(email, CoreMatchers.is("757306533@qq.com"));
         assertThat(phone, CoreMatchers.is("17674013080"));
         assertThat(password, CoreMatchers.is("333"));
+        assertThat(customer.toString(), CoreMatchers.is(name + "\t" + email + "\t" + phone));
 
     }
 }
