@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -16,6 +17,15 @@ public class Outputer<T> {
             System.out.printf("%-4d\t%-30s\n", i+1, list.get(i).getTitle());
         }
 
+    }
+
+    public void displayWhoCheckoutTheBook(Map<Customer, List<Book>> bookCheckoutMapper){
+        for(Customer customer:bookCheckoutMapper.keySet()){
+            List<Book> listOfBook = bookCheckoutMapper.get(customer);
+            for(Book book: listOfBook){
+                System.out.println(customer.getName() + " lend " + book.getTitle());
+            }
+        }
     }
 
 
