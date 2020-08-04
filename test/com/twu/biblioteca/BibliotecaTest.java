@@ -6,6 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static org.junit.Assert.assertThat;
@@ -75,19 +77,45 @@ public class BibliotecaTest {
 
     @Test
     public void testReturn() throws ParseException {
-        //when
+        //given
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
         Book book = new Book("Le Petit Prince", "1942-10-01", (ArrayList<String>)authers.clone());
 
 
-        //given
+        //when
         biblioteca.checkoutItem(1, biblioteca.getBookList());
         int beforeCount = biblioteca.getBookList().size();
         biblioteca.ReturnBook(book);
 
         //then
         assertThat(beforeCount, CoreMatchers.is(biblioteca.getBookList().size()-1));
+
+    }
+
+    @Test
+    public void testGetCustomerInfoInput() throws IOException {
+        //given
+        //when
+        String[] phone_password = getCustomerInfoInput();
+        //then
+        assertThat(phone_password[0] , CoreMatchers.is("222-3333"));
+        assertThat(phone_password[1], CoreMatchers.is("123"));
+    }
+
+    public String[] getCustomerInfoInput() throws IOException {
+        String [] phone_password = new String[2];
+        System.out.println("Please input your phone: ");
+        ByteArrayInputStream strIn=new ByteArrayInputStream("222-3333".getBytes());
+        System.setIn(strIn);
+        String phone = new String(System.in.readAllBytes());
+        System.out.println("Please input your password: ");
+        ByteArrayInputStream strIn2=new ByteArrayInputStream("123".getBytes());
+        System.setIn(strIn2);
+        String password = new String(System.in.readAllBytes());
+        phone_password[0] = phone;
+        phone_password[1] = password;
+        return phone_password;
 
     }
 }

@@ -29,6 +29,7 @@ public class Biblioteca {
         listOfOptions.add("Return a book");
         listOfOptions.add("View a list of available movies");
         listOfOptions.add("Checkout a movie");
+        listOfOptions.add("To see Who has checkout the book");
         listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
     }
@@ -54,6 +55,23 @@ public class Biblioteca {
         return menu_i;
     }
 
+    public String getString(){
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine().trim();
+    }
+
+    public String[] getCustomerInfoInput(){
+        String [] phone_password = new String[2];
+        System.out.println("Please input your phone: ");
+        String phone = getString();
+        System.out.println("Please input your password: ");
+        String password = getString();
+        phone_password[0] = phone;
+        phone_password[1] = password;
+        return phone_password;
+
+    }
+
     public int interActWithCustomerOnMenu() throws ParseException {
         int menu_i = this.getMenuInput();
         String option = this.menu.getIndexOption(menu_i);
@@ -74,7 +92,10 @@ public class Biblioteca {
         }else if (option == "Checkout a movie"){
             int book_i = this.getCheckOutInput(this.movieList);
             this.checkoutItem(book_i, this.getMovieList());
-            return 2;
+            return 5;
+        }else if (option == "To see Who has checkout the book"){
+            outputer.displayWhoCheckoutTheBook(databaseOfLibrary.getBookCheckoutMapper());
+            return 6;
         }else if (option == "Quit"){
             return -1;
         }
