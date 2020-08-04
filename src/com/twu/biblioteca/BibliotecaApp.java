@@ -21,18 +21,8 @@ public class BibliotecaApp{
             int ret = biblioteca.interActWithCustomerOnMenu();
             if (ret == -1){
                 break;
-            }else if (ret == 1){
+            }else{
                 biblioteca.getMenu().displayMenu();
-
-            }else if (ret == 2){
-                biblioteca.getMenu().displayMenu();
-
-            }else if (ret == 3){
-                biblioteca.getMenu().displayMenu();
-
-            }else if (ret == 4){
-                biblioteca.getMenu().displayMenu();
-
             }
         }
 

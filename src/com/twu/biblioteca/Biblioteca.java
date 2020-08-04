@@ -79,8 +79,15 @@ public class Biblioteca {
             this.outputer.displayBookListDetail(this.bookList);
             return 1;
         }else if (option == "Checkout a book"){
-            int book_i = this.getCheckOutInput(this.bookList);
-            this.checkoutItem(book_i, this.getBookList());
+            String[] phone_password = this.getCustomerInfoInput();
+            Customer customer = databaseOfLibrary.CustomerLogin(phone_password[0], phone_password[1]);
+            if (customer != null ){
+                int book_i = this.getCheckOutInput(this.bookList);
+
+                this.checkoutItem(customer, book_i, this.getBookList());
+
+            }
+
             return 2;
         }else if (option == "Return a book"){
             Book book = this.getBookInfo();
@@ -91,7 +98,7 @@ public class Biblioteca {
             return 4;
         }else if (option == "Checkout a movie"){
             int book_i = this.getCheckOutInput(this.movieList);
-            this.checkoutItem(book_i, this.getMovieList());
+            this.checkoutItem(null, book_i, this.getMovieList());
             return 5;
         }else if (option == "To see Who has checkout the book"){
             outputer.displayWhoCheckoutTheBook(databaseOfLibrary.getBookCheckoutMapper());
@@ -159,6 +166,7 @@ public class Biblioteca {
         {
             Scanner sc = new Scanner(System.in);
             try{
+                System.out.println("Please input the ID of the item you want to lend");
                 item_i = sc.nextInt();
                 if (isIndexInList(item_i, list.size()))break;
                 else if (item_i != -1){
@@ -190,11 +198,12 @@ public class Biblioteca {
     }
 
 
-    public boolean checkoutItem(int item_i, List<? extends Item> list){
+    public boolean checkoutItem(Customer customer, int item_i, List<? extends Item> list){
         if(item_i != -1){
             Item item = list.remove(item_i-1);
             if (item instanceof Book){
                 this.outputer.displayMessage(Message.getCheckoutSuccessfulMessage());
+                this.databaseOfLibrary.checkoutBook(customer, (Book)item);
             }else if(item instanceof Movie){
                 this.outputer.displayMessage(Message.getCheckoutMovieFailedMessage());
             }

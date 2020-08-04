@@ -54,10 +54,11 @@ public class BibliotecaTest {
     @Test
     public void testCheckoutBook() throws ParseException {
         //given
+        DatabaseOfLibrary databaseOfLibrary = new DatabaseOfLibrary();
 
         //when
         int beforeCount = biblioteca.getBookList().size();
-        biblioteca.checkoutItem(1, biblioteca.getBookList());
+        biblioteca.checkoutItem(databaseOfLibrary.getCustomerList().get(1), 1, biblioteca.getBookList());
 
         //then
         assertThat(beforeCount, CoreMatchers.is(biblioteca.getBookList().size()+1));
@@ -69,7 +70,7 @@ public class BibliotecaTest {
 
         //when
         int beforeCount = biblioteca.getMovieList().size();
-        biblioteca.checkoutItem(1, biblioteca.getMovieList());
+        biblioteca.checkoutItem(null, 1, biblioteca.getMovieList());
 
         //then
         assertThat(beforeCount, CoreMatchers.is(biblioteca.getMovieList().size()+1));
@@ -78,13 +79,14 @@ public class BibliotecaTest {
     @Test
     public void testReturn() throws ParseException {
         //given
+        DatabaseOfLibrary databaseOfLibrary = new DatabaseOfLibrary();
         ArrayList<String> authers = new ArrayList<String>();
         authers.add("Antoine de Saint-Exupéry");
         Book book = new Book("Le Petit Prince", "1942-10-01", (ArrayList<String>)authers.clone());
 
 
         //when
-        biblioteca.checkoutItem(1, biblioteca.getBookList());
+        biblioteca.checkoutItem(databaseOfLibrary.getCustomerList().get(0), 1, biblioteca.getBookList());
         int beforeCount = biblioteca.getBookList().size();
         biblioteca.ReturnBook(book);
 
