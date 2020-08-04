@@ -12,6 +12,7 @@ public class Biblioteca {
     private List<Book> backupOfBookList;
     private List<Movie> movieList;
     private DatabaseOfLibrary databaseOfLibrary;
+    private Customer currentCustomer;
 
     public Biblioteca() throws ParseException {
         this.databaseOfLibrary = new DatabaseOfLibrary();
@@ -21,6 +22,7 @@ public class Biblioteca {
         this.backupOfBookList = new ArrayList<Book>();
         this.backupOfBookList.addAll(this.bookList);
         this.movieList = databaseOfLibrary.getMovieList();
+        this.currentCustomer = null;
 
 
         ArrayList<String> listOfOptions = new ArrayList<String>();
@@ -32,6 +34,14 @@ public class Biblioteca {
         listOfOptions.add("To see Who has checkout the book");
         listOfOptions.add("Quit");
         this.menu = new Menu<String>(listOfOptions);
+    }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
+    }
+
+    public void setCurrentCustomer(Customer currentCustomer) {
+        this.currentCustomer = currentCustomer;
     }
 
     public int getMenuInput(){
@@ -72,6 +82,17 @@ public class Biblioteca {
 
     }
 
+    public void loginSuccessfulNeedDo(Customer customer){
+        this.setCurrentCustomer(customer);
+        if(this.currentCustomer != null){
+            List<String> listOfMenuOptions = this.menu.getlistOfOptions();
+            listOfMenuOptions.add("To See My Information");
+            this.menu.setlistOfOptions(listOfMenuOptions);
+        }
+
+
+    }
+
     public int interActWithCustomerOnMenu() throws ParseException {
         int menu_i = this.getMenuInput();
         String option = this.menu.getIndexOption(menu_i);
@@ -82,6 +103,8 @@ public class Biblioteca {
             String[] phone_password = this.getCustomerInfoInput();
             Customer customer = databaseOfLibrary.CustomerLogin(phone_password[0], phone_password[1]);
             if (customer != null ){
+
+                this.loginSuccessfulNeedDo(customer);
                 int book_i = this.getCheckOutInput(this.bookList);
 
                 this.checkoutItem(customer, book_i, this.getBookList());
@@ -105,6 +128,9 @@ public class Biblioteca {
             return 6;
         }else if (option == "Quit"){
             return -1;
+        }else if (option == "To See My Information"){
+            outputer.displayMessage(currentCustomer.toString());
+            return 7;
         }
         return 1;
     }

@@ -105,6 +105,21 @@ public class BibliotecaTest {
         assertThat(phone_password[1], CoreMatchers.is("123"));
     }
 
+    @Test
+    public void testLoginSuccessfulNeedDo() throws ParseException {
+        //given
+        DatabaseOfLibrary databaseOfLibrary = new DatabaseOfLibrary();
+
+
+        //when
+        int loginBeforeMenuOptionsSize = biblioteca.getMenu().getlistOfOptions().size();
+        biblioteca.loginSuccessfulNeedDo(databaseOfLibrary.getCustomerList().get(0));
+        int loginAfterMenuOptionsSize = biblioteca.getMenu().getlistOfOptions().size();
+
+        //then
+        assertThat(loginBeforeMenuOptionsSize, CoreMatchers.is(loginAfterMenuOptionsSize-1));
+    }
+
     public String[] getCustomerInfoInput() throws IOException {
         String [] phone_password = new String[2];
         System.out.println("Please input your phone: ");
