@@ -58,4 +58,17 @@ public class DatabaseOfLibraryTest {
         assertThat(databaseOfLibrary.getBookCheckoutMapper().size(), CoreMatchers.is(1));
 
     }
+
+    @Test
+    public void testCustomerLogin() throws ParseException {
+        // given
+        DatabaseOfLibrary databaseOfLibrary = new DatabaseOfLibrary();
+        ArrayList<Customer> customerArrayList = (ArrayList<Customer>)databaseOfLibrary.getCustomerList();
+
+        // when
+        Customer customer = databaseOfLibrary.CustomerLogin("333-4444", "123");
+        // then
+        assertThat(customer.getPhone(), CoreMatchers.is("333-4444"));
+
+    }
 }

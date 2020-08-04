@@ -105,5 +105,13 @@ public class DatabaseOfLibrary {
     public List<Book> getBookList() {
         return bookList;
     }
-
+    public Customer CustomerLogin(String phone, String password){
+        Customer customer = null;
+        for(int i = 0; i < customerList.size(); i++){
+            if (customerList.get(i).getPhone().equals(phone) && customerList.get(i).getPassword().equals(password)){
+                return customerList.get(i);
+            }
+        }
+        return customer;
+    }
 }
